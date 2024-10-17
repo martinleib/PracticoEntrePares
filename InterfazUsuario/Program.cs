@@ -9,6 +9,9 @@ namespace InterfazUsuario
 
         static void Main(string[] args)
         {
+            miSistema.PrecargaExcursionExtranjero();
+            miSistema.PrecargaExcursionNacional();
+
             Menu();
         }
 
@@ -18,12 +21,18 @@ namespace InterfazUsuario
             while (!salio)
             {
                 Console.WriteLine("1- Agregar Cliente");
+                Console.WriteLine("2- Agregar Contrato");
+                Console.WriteLine("0- Salir");
+
                 int.TryParse(Console.ReadLine(), out int ingreso);
 
                 switch (ingreso)
                 {
                     case 1:
                         AltaCliente();
+                        break;
+                    case 2:
+                        AltaContrato();
                         break;
                     case 0:
                         salio = true;
@@ -43,6 +52,26 @@ namespace InterfazUsuario
                 string telefono = Console.ReadLine();
                 miSistema.AgregarCliente(cedula, nombre, telefono);
                 Console.WriteLine("Cliente creado de manera exitosa");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+        }
+
+        static void AltaContrato()
+        {
+            try
+            {
+                Console.WriteLine("Ingrese precio");
+                double.TryParse(Console.ReadLine(), out double precio);
+                Console.WriteLine("Ingrese cantidad de pasajeros");
+                int.TryParse(Console.ReadLine(), out int cant);
+                Console.WriteLine("Ingrese el codigo de la excursion");
+                string codEx = Console.ReadLine();
+
+                miSistema.AltaContrato(precio, cant, codEx);
+                Console.WriteLine("Contrato creado de manera exitosa");
             }
             catch (Exception ex)
             {

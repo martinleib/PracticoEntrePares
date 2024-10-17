@@ -16,5 +16,10 @@
             this._cantDias = cantDias;
             this._costoDiario = costoDiario;
         }
+
+        public string Codigo
+        {
+            get { return _codigo; }
+        }
     }
 }
