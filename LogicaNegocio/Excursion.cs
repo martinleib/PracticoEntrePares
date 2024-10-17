@@ -26,5 +26,10 @@
         {
             get { return _fecha; }
         }
+
+        public override string ToString()
+        {
+            return $"Codigo: {_codigo}, Descripcion {_descripcion}, Fecha {_fecha}, Cantidad de dias {_cantDias}";
+        }
     }
 }

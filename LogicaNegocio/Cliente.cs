@@ -12,5 +12,10 @@
             this._nombre = nombre;
             this._tel = tel;
         }
+
+        public string Cedula
+        {
+            get { return _cedula; }
+        }
     }
 }

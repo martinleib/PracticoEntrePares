@@ -11,6 +11,8 @@ namespace InterfazUsuario
         {
             miSistema.PrecargaExcursionExtranjero();
             miSistema.PrecargaExcursionNacional();
+            miSistema.PrecargaClientes();
+            miSistema.PrecargaContratos();
 
             Menu();
         }
@@ -23,6 +25,7 @@ namespace InterfazUsuario
                 Console.WriteLine("1- Agregar Cliente");
                 Console.WriteLine("2- Agregar Contrato");
                 Console.WriteLine("3- Dada dos fechas mostrar las excursiones entre ellas");
+                Console.WriteLine("4- Dada una cedula retornar costo total de excursiones de un cliente");
                 Console.WriteLine("0- Salir");
 
                 int.TryParse(Console.ReadLine(), out int ingreso);
@@ -35,8 +38,11 @@ namespace InterfazUsuario
                     case 2:
                         AltaContrato();
                         break;
-                        case 3:
-                            ListarExcursionesEntreFechas();
+                    case 3:
+                        ListarExcursionesEntreFechas();
+                        break;
+                    case 4:
+                        ListarCostoTotalPorCedula();
                         break;
                     case 0:
                         salio = true;
@@ -73,8 +79,10 @@ namespace InterfazUsuario
                 int.TryParse(Console.ReadLine(), out int cant);
                 Console.WriteLine("Ingrese el codigo de la excursion");
                 string codEx = Console.ReadLine();
+                Console.WriteLine("Ingrese la cedula del cliente");
+                string cedula = Console.ReadLine();
 
-                miSistema.AltaContrato(precio, cant, codEx);
+                miSistema.AltaContrato(precio, cant, codEx, cedula);
                 Console.WriteLine("Contrato creado de manera exitosa");
             }
             catch (Exception ex)
@@ -94,6 +102,15 @@ namespace InterfazUsuario
             {
                 Console.WriteLine(excursion);
             }
+        }
+
+        static void ListarCostoTotalPorCedula()
+        {
+            Console.Clear();
+            Console.WriteLine("Ingrese la cedula del cliente");
+            string cedula = Console.ReadLine();
+
+            Console.WriteLine($"El costo total de las excursiones del cliente es: {miSistema.ObtenerCostoTotal(cedula)}");
         }
     }
 }

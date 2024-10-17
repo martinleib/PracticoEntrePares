@@ -6,6 +6,7 @@ namespace LogicaNegocio
     {
         List<Cliente> _clientes = new List<Cliente>();
         List<Excursion> _excursiones = new List<Excursion>();
+        List<Contrato> _contratos = new List<Contrato>();
 
         public void AgregarCliente(string cedula, string nombre, string tel)
         {
@@ -31,20 +32,71 @@ namespace LogicaNegocio
             }
         }
 
-        public void AltaContrato(double precio, int cantPasajeros, string idExcursion)
+        public List<Contrato> ObtenerContrato(int idContrato)
+        {
+            List<Contrato> contratoEncontrado = null;
+            foreach (Contrato contrato in _contratos)
+            {
+                if (contrato.Id == idContrato)
+                {
+                    contratoEncontrado.Add(contrato);
+                }
+            }
+
+            return contratoEncontrado;
+        }
+
+        public void AltaContrato(double precio, int cantPasajeros, string idExcursion, string cedula)
         {
             if (precio <= 0)
             {
                 throw new Exception("El precio no es valido. Ingrese de vuelta");
-            } else if(cantPasajeros <= 0)
+            }
+            else if (cantPasajeros <= 0)
             {
                 throw new Exception("La cantidad de pasajeros no es valida. Ingrese de vuelta");
-            } else if(ObtenerExcursionPorID(idExcursion) == null)
+            }
+            else if (ObtenerExcursionPorID(idExcursion) == null)
             {
                 throw new Exception("No existe una excursion con ese codigo");
             }
 
-            Contrato contrato = new(precio, cantPasajeros, ObtenerExcursionPorID(idExcursion));
+            Contrato contrato = new(precio, cantPasajeros, ObtenerExcursionPorID(idExcursion), ObtenerClientePorCedula(cedula));
+
+            if (!_contratos.Contains(contrato))
+            {
+                _contratos.Add(contrato);
+            }
+        }
+        
+        public void PrecargaContratos()
+        {
+            AltaContrato(100, 2, "1", "55748025");
+            AltaContrato(200, 3, "2", "55748026");
+            AltaContrato(300, 4, "3", "55748027");
+        }
+
+        public void PrecargaClientes()
+        {
+            AgregarCliente("55748025", "Juan", "099999999");
+            AgregarCliente("55748026", "Pedro", "099999998");
+            AgregarCliente("55748027", "Maria", "099999997");
+        }
+
+        public double ObtenerCostoTotal(string cedula)
+        {
+            Cliente cliente = ObtenerClientePorCedula(cedula);
+            double precioAcumulado = 0;
+
+            foreach (Contrato contrato in _contratos)
+            {
+                if (contrato.Cliente == cliente)
+                {
+                    precioAcumulado += contrato.Precio;
+                }
+            }
+
+            return precioAcumulado;
         }
 
         public Excursion ObtenerExcursionPorID(string codigoExcursion)
@@ -61,6 +113,19 @@ namespace LogicaNegocio
             return excursionEncontrada;
         }
 
+        public Cliente ObtenerClientePorCedula(string cedula)
+        {
+            Cliente clienteEncontrado = null;
+            foreach (Cliente cliente in _clientes)
+            {
+                if (cliente.Cedula == cedula)
+                {
+                    clienteEncontrado = cliente;
+                }
+            }
+
+            return clienteEncontrado;
+        }
         public List<Excursion> ObtenerExcursionesEntreFecha(DateTime fechaInicio, DateTime fechaFinal)
         {
             List<Excursion> excursion = new List<Excursion>();
