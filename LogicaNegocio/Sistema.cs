@@ -27,6 +27,14 @@
             }
         }
 
+        private void AltaExcursionNacional(string codigo, string descripcion, DateTime fecha, int cantDias, double costoDiario, int cantMaxima, int porcentaje)
+        {
+            Nacional excursion = new Nacional(codigo, descripcion, fecha, cantDias, costoDiario, cantMaxima, porcentaje);
+            if (!_excursiones.Contains(excursion))
+            {
+                _excursiones.Add(excursion);
+            }
+        }
 
         private void PrecargaExcursionNacional()
         {
@@ -35,23 +43,20 @@
             AltaExcursionNacional("3", "Viaje Largo", new DateTime(2024, 06, 02), 6, 15.99, 6, 15);
         }
 
+        private void AltaExcursionExtranjero(string codigo, string descripcion, DateTime fecha, int cantDias, double costoDiario, bool tienePasaje)
+        {
+            Extranjero excursion = new Extranjero(codigo, descripcion, fecha, cantDias, costoDiario, tienePasaje);
+            if (!_excursiones.Contains(excursion))
+            {
+                _excursiones.Add(excursion);
+            }
+        }
 
         private void PrecargaExcursionExtranjero()
         {
-            AltaExcursionNacional("1", "Viaje corto", new DateTime(2024, 06, 01), 4, 10.99);
-            AltaExcursionNacional("2", "Viaje corto", new DateTime(2024, 04, 07), 7, 20.99);
-            AltaExcursionNacional("3", "Viaje Largo", new DateTime(2024, 06, 02), 6, 15.99);
-        }
-
-
-        private void AltaExcursionNacional(string codigo, string descripcion, DateTime fecha, int cantDias,double costoDiario,int cantMaxima, int porcentaje)
-        {
-            Nacional excursionNacional = new Nacional(codigo, descripcion, fecha, cantDias, costoDiario, cantMaxima, porcentaje);
-            if (!_excursiones.Contains(excursionNacional))
-            {
-                _excursiones.Add(excursionNacional);
-            }
-
+            AltaExcursionExtranjero("1", "Viaje corto", new DateTime(2024, 06, 01), 4, 10.99, true);
+            AltaExcursionExtranjero("2", "Viaje corto", new DateTime(2024, 04, 07), 7, 20.99, false);
+            AltaExcursionExtranjero("3", "Viaje Largo", new DateTime(2024, 06, 02), 6, 15.99, false);
         }
     }
 }
