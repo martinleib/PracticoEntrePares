@@ -61,6 +61,21 @@ namespace LogicaNegocio
             return excursionEncontrada;
         }
 
+        public List<Excursion> ObtenerExcursionesEntreFecha(DateTime fechaInicio, DateTime fechaFinal)
+        {
+            List<Excursion> excursion = new List<Excursion>();
+            int i = 0;
+            while (i < _excursiones.Count)
+            {
+                if (_excursiones[i].Fecha >= fechaInicio && _excursiones[i].Fecha <= fechaFinal)
+                {
+                    excursion.Add(_excursiones[i]);
+                }
+                i++;
+            }
+            return excursion;
+        }
+
         public void AltaExcursionNacional(string codigo, string descripcion, DateTime fecha, int cantDias, double costoDiario, int cantMaxima, int porcentaje)
         {
             Nacional excursion = new Nacional(codigo, descripcion, fecha, cantDias, costoDiario, cantMaxima, porcentaje);

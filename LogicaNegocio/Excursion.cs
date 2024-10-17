@@ -21,5 +21,10 @@
         {
             get { return _codigo; }
         }
+
+        public DateTime Fecha
+        {
+            get { return _fecha; }
+        }
     }
 }

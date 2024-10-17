@@ -22,6 +22,7 @@ namespace InterfazUsuario
             {
                 Console.WriteLine("1- Agregar Cliente");
                 Console.WriteLine("2- Agregar Contrato");
+                Console.WriteLine("3- Dada dos fechas mostrar las excursiones entre ellas");
                 Console.WriteLine("0- Salir");
 
                 int.TryParse(Console.ReadLine(), out int ingreso);
@@ -33,6 +34,9 @@ namespace InterfazUsuario
                         break;
                     case 2:
                         AltaContrato();
+                        break;
+                        case 3:
+                            ListarExcursionesEntreFechas();
                         break;
                     case 0:
                         salio = true;
@@ -76,6 +80,19 @@ namespace InterfazUsuario
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
+            }
+        }
+
+        static void ListarExcursionesEntreFechas()
+        {
+            Console.Clear();
+            Console.WriteLine("Ingrese la fecha de inicio (Formato YYYY-MM-DD)");
+            DateTime fechaInicial = DateTime.Parse(Console.ReadLine());
+            Console.WriteLine("Ingrese la fecha de fin (Formato YYYY-MM-DD)");
+            DateTime fechaFinal = DateTime.Parse(Console.ReadLine());
+            foreach (Excursion excursion in miSistema.ObtenerExcursionesEntreFecha(fechaInicial, fechaFinal))
+            {
+                Console.WriteLine(excursion);
             }
         }
     }
