@@ -9,5 +9,16 @@
             this._cantMaxima = cantMaxima;
             this._porcentaje = porcentaje;
         }
+
+        public override double CalcularCostoExcursion(int cantPasajeros)
+        {
+            double precio = _cantDias * _costoDiario * cantPasajeros;
+            if (cantPasajeros > 2)
+            {
+                precio = precio - (precio * _porcentaje / 100);
+            }
+            return precio;
+        }
+
     }
 }

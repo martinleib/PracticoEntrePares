@@ -10,6 +10,12 @@
             this._tienePasaje = tienePasaje;
         }
 
+        public override double CalcularCostoExcursion(int cantPasajeros)
+        {
+            double precio = +_cantDias * _costoDiario * cantPasajeros;
+            return precio + (s_seguro * _cantDias);
+        }
+
         public double Seguro
         {
             get { return s_seguro; }

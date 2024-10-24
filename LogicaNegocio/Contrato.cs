@@ -30,6 +30,11 @@
             get { return _precio;  }
         }
 
+        public double CostoContrato()
+        {
+            return _excursion.CalcularCostoExcursion(_cantPasajeros);
+        }
+
         public Cliente Cliente
         {
             get { return _cliente; }

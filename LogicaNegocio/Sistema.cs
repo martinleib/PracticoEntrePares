@@ -92,7 +92,7 @@ namespace LogicaNegocio
             {
                 if (contrato.Cliente == cliente)
                 {
-                    precioAcumulado += contrato.Precio;
+                    precioAcumulado += contrato.CostoContrato();
                 }
             }
 
